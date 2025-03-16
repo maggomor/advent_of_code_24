@@ -6,3 +6,13 @@ venv
 .vscode
 
 .pytest_*
+
+# Ignore Python cache directories
+__pycache__/
+
+# Ignore other files and directories
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
