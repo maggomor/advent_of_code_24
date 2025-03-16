@@ -1,5 +1,3 @@
-import pydantic
-
 from pydantic import BaseModel
 import numpy as np
 
