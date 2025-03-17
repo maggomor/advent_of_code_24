@@ -31,10 +31,5 @@ class DayThreeClass(BaseModel):
     
 if __name__ == "__main__":
     test_string = "156mul(12,5)+asdwimul[12,4],oismul(14,9*mul(12,5!)asmul(15,4^2)miaumul(14,9**5)iwdmul(14,8)"
-    test_string2 = "mul(12,5)"
     checker = DayThreeClass()
     outcome = checker.get_multiplication_result(test_string)
-    outcome2 = checker.get_multiplication_result(test_string2)
-    test_list = ["12", "ab"]
-    print(f"Result for outcome 2 is {outcome2}")
-    print(f"Result for all multiplications is {outcome}")
