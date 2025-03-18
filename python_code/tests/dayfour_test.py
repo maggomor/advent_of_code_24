@@ -4,7 +4,7 @@ import numpy as np
 from python_code.src.day4.main import DayFourClass
 
 
-class TestDayTwoClass:
+class TestDayFourClass:
     def test_check_connections(self):
         checker = DayFourClass()
         matrix = [list("MMMSXXMASM"),list("MSAMXMSMSA"),list("AMXSXMAAMM"),list("MSAMASMSMX"),list("XMASAMXAMM"),list("XXAMMXXAMA"),list("SMSMSASXSS"),list("SAXAMASAAA"),list("MAMMMXMMMM"),list("MXMXAXMASX")]
