@@ -76,7 +76,6 @@ class DaySixClass(BaseModel):
     
     def run_through_maze(self, input_maze:str = None):
         if self.validate_maze(input_maze=input_maze):
-
             self.maze_array = self.save_maze_array()
             location, direction = self.locate_player_and_direction()
             val, new_loc, new_direc, visited, visited_locations_directions = False, location, direction, [location], []
