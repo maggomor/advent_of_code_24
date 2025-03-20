@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 import numpy as np
 from typing import Union
+from time import time
 
 class DaySixClass(BaseModel):
     input_maze: str = None
@@ -40,11 +41,13 @@ class DaySixClass(BaseModel):
             elif self.maze_array[i][0].find("<") != -1:
                 return np.array([i, self.maze_array[i][0].find("<")]), np.array([0,-1])
     
-    def locate_next_obstacle(self, maze_array:np.ndarray = None, location: np.ndarray = None, direction: np.ndarray = None, visited_locations: list = []):
+    def locate_next_obstacle(self, maze_array:np.ndarray = None, location: np.ndarray = None, direction: np.ndarray = None, visited_locations: list = [], visited_locations_directions: list = []):
         current_location = location
-        visited_locations.append(current_location)
+        if len(list(set(visited_locations_directions))) < len(visited_locations_directions):
+                raise ValueError("Endless Loop encountered, there is no exit.")
         exit_found = False
         right_wing_turn = {str(np.array([-1,0])): np.array([0,1]), str(np.array([0,1])): np.array([1,0]), str(np.array([1,0])): np.array([0, -1]), str(np.array([0,-1])): np.array([-1,0])}
+        visited_locations_directions.append(str(location)+ ";" + str(direction))
         while True:
             new_location = current_location + direction
             if ((new_location[0] < 0) | (new_location[1] < 0) | (new_location[0] > maze_array.shape[0] -1) | (new_location[1] > (len(maze_array[0][0]) -1))):
@@ -53,13 +56,14 @@ class DaySixClass(BaseModel):
             if maze_array[new_location[0]][0][new_location[1]] == "#":
                 direction = right_wing_turn[str(direction)]
                 break
-            elif any([all((new_location in loc) & (new_location != location)) for loc in (visited_locations)]):
-                raise ValueError("Endless Loop encountered, there is no exit.")
-                break
             else: 
                 current_location = new_location
                 visited_locations.append(current_location)
-        return exit_found, current_location, direction, visited_locations
+                visited_locations_directions.append(str(current_location) + ";" + str(direction))
+        visited_locations.append(location)
+        print(len(list(set(visited_locations_directions))), len(visited_locations_directions))
+        print("-----------\n")
+        return exit_found, current_location, direction, visited_locations, visited_locations_directions
     
     def mark_locations(self, maze_array, visited):
         for visited_location in visited:
@@ -72,22 +76,27 @@ class DaySixClass(BaseModel):
     
     def run_through_maze(self, input_maze:str = None):
         if self.validate_maze(input_maze=input_maze):
+
             self.maze_array = self.save_maze_array()
             location, direction = self.locate_player_and_direction()
-            val, new_loc, new_direc, visited = False, location, direction, []
+            val, new_loc, new_direc, visited, visited_locations_directions = False, location, direction, [location], []
+            start_timer = time()
             while not val:
-                val, new_loc, new_direc, visited = self.locate_next_obstacle(maze_array=self.maze_array, location = new_loc, direction = new_direc, visited_locations=visited)
+                val, new_loc, new_direc, visited, visited_locations_directions = self.locate_next_obstacle(maze_array=self.maze_array, location = new_loc, direction = new_direc, visited_locations=visited, visited_locations_directions=visited_locations_directions)
+                if time() - start_timer > 10:
+                    raise ValueError("This is taking too long, you are probably in a loop.")
             new_maze = self.maze_array.copy()
             maze_visited = self.mark_locations(new_maze, visited)
             maze_visited_string = self.turn_maze_array_into_string(maze_visited)
-            return maze_visited_string, f"{len(list(set([str(x.tolist()) for x in visited])))} different unique points have been visited by the guard."
+            return maze_visited_string, f"{len(list(set([str(x.tolist()) for x in visited])))} different unique points have been visited by the guard.", len(list(set([str(x.tolist()) for x in visited])))
         else:
             raise ValueError("Maze that was entered is not as required.")
     
 if __name__ == "__main__":
     input_maze = "....#.....\n.........#\n..........\n..#.......\n.......#..\n..........\n.#..^.....\n........#.\n#.........\n......#..."
+    print(input_maze)
     checker = DaySixClass()
-    maze_visited, visited = checker.run_through_maze(input_maze = input_maze)
+    maze_visited, visited, _ = checker.run_through_maze(input_maze = input_maze)
     print("Path of the guard is as follows:")
     print(maze_visited)
     print(visited)
