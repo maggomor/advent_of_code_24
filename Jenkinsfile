@@ -87,6 +87,7 @@ pipeline {
                     echo "Will release"
                 else
                     echo "Nothing will be released"
+                fi
                 '''
             echo 'Everything went great.'
         }
