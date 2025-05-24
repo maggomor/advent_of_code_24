@@ -83,7 +83,7 @@ pipeline {
     post {
         success {
             sh '''
-                if [ "$RELEASE" = true ]; then
+                if [ "${RELEASE}" = true ]; then
                     echo "Will release"
                 else
                     echo "Nothing will be released"
