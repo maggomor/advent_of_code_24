@@ -95,7 +95,7 @@ pipeline {
             echo 'Woopsie-Daisy!'
         }
         always {
-            cleanws()
+            cleanWs()
         }
     }
 
