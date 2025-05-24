@@ -21,22 +21,11 @@ pipeline {
                 sh 'ls'
                 dir('./python_code') {
                 sh 'ls'
-                //sh '''
-                //if [ ! -d "$VENV_DIR" ]; then
-                //    echo "Creating virtual environment..."
-                //    python3 -m venv $VENV_DIR
-                //    source $VENV_DIR/bin/activate
-                //    pip install --upgrade pip
-                //    pip install -r requirements.txt
-                //else
-                //    echo "Virtual environment already exists."
-                //fi
-                //'''
                 echo "Creating virtual environment..."
-                    python3 -m venv $VENV_DIR
-                    source $VENV_DIR/bin/activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
+                python3 -m venv $VENV_DIR
+                source $VENV_DIR/bin/activate
+                pip install --upgrade pip
+                pip install -r requirements.txt
                 }
             }
         }
