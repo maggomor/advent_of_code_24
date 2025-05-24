@@ -96,7 +96,7 @@ void run_code() {
         if [ ! -x "$VENV_PATH" ]; then
             echo "Virtual environment not found at $VENV_PATH"
             exit 1
-        f
+        fi
         for dir in src/*/; do
             MAIN_FILE="${dir}main.py"
             if [ -f "$MAIN_FILE" ]; then
