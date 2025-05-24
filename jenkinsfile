@@ -69,6 +69,7 @@ pipeline {
                     else
                         echo "Skipping $dir: main.py not found"
                     fi
+                done
                 '''
                 }
             }
