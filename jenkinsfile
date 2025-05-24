@@ -38,6 +38,7 @@ pipeline {
                 sh 'ls'
                 sh '''
                 echo "Executing Unit Tests..."
+                export PYTHONPATH=$PWD
                 .venv/bin/python -m pytest tests/ --junitxml=test-results/results.xml
                 '''
                 }
