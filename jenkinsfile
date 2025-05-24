@@ -22,13 +22,10 @@ pipeline {
                 dir('./python_code') {
                 sh 'ls'
                 sh '''
-                #!/bin/bash
-                set -e
                 echo "Creating virtual environment..."
                 python3 -m venv $VENV_DIR
-                source $VENV_DIR/bin/activate
-                pip install --upgrade pip
-                pip install -r requirements.txt
+                $VENV_DIR/bin/pip install --upgrade pip
+                $VENV_DIR/bin/pip install -r requirements.txt
                 '''
                 }
             }
@@ -39,13 +36,9 @@ pipeline {
             steps {
                 dir('./python_code') {
                 sh 'ls'
-                sh 'source .venv/bin/activate'
-                sh 'echo "Venv has been activated"'
                 sh '''
-                #!/bin/bash
-                set -e
                 echo "Executing Unit Tests..."
-                pytest
+                .venv/bin/python -m pytest tests/ --junitxml=test-results/results.xml
                 '''
                 }
             }
