@@ -90,8 +90,8 @@ void make_venv() {
 void run_code() {
     sh '''
         #!/bin/bash
-        set -e  # Exit on erro
-        VENV_PATH=".venv/bin/python
+        set -e  # Exit on error
+        VENV_PATH=".venv/bin/python"
         # Ensure virtual environment exists
         if [ ! -x "$VENV_PATH" ]; then
             echo "Virtual environment not found at $VENV_PATH"
