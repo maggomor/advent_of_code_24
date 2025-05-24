@@ -48,18 +48,19 @@ pipeline {
 
         stage('Run Code') {
             steps {
+                dir('./python_code') {
                 sh '''
                 #!/bin/bash
                 set -e  # Exit on error
-                
+
                 VENV_PATH=".venv/bin/python"
-                
+
                 # Ensure virtual environment exists
                 if [ ! -x "$VENV_PATH" ]; then
                     echo "Virtual environment not found at $VENV_PATH"
                     exit 1
                 fi
-                
+
                 for dir in src/*/; do
                     MAIN_FILE="${dir}main.py"
                     if [ -f "$MAIN_FILE" ]; then
@@ -69,6 +70,7 @@ pipeline {
                         echo "Skipping $dir: main.py not found"
                     fi
                 '''
+                }
             }
         }
     }
