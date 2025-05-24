@@ -9,7 +9,7 @@ pipeline {
             steps {
                 sh '''
                 git version
-                python --version
+                python3 --version
                 ls
                 '''
             }
