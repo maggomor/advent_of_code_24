@@ -1,7 +1,9 @@
 import pytest 
 import numpy as np
-
-from python_code.src.day2.main import DayTwoClass
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from src.day2.main import DayTwoClass
 
 class TestDayTwoClass:
     def test_check_compare_adjacent_entries(self):

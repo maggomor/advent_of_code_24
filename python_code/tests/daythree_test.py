@@ -1,7 +1,9 @@
 import pytest 
 import numpy as np
-
-from python_code.src.day3.main import DayThreeClass
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from src.day3.main import DayThreeClass
 
 class TestDayThreeClass:
     def test_check_base_functionality(self):

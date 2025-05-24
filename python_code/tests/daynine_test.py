@@ -1,6 +1,8 @@
 import pytest 
-
-from python_code.src.day9.main import DayNineClass
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from src.day9.main import DayNineClass
 
 class TestDayOneClass:
     def test_check_list_correctness(self):
