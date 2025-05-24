@@ -39,10 +39,15 @@ pipeline {
 
         stage('Unit Tests') {
             steps {
+                dir('./python_code') {
+                sh 'ls'
+                sh 'source venv/bin/activate'
+                sh 'echo "Venv has been activated"'
                 sh '''
                 echo "Executing Unit Tests..."
                 pytest
                 '''
+                }
             }
         }
     }
