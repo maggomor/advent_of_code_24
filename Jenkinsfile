@@ -94,6 +94,9 @@ pipeline {
         failure {
             echo 'Woopsie-Daisy!'
         }
+        always {
+            cleanws()
+        }
     }
 
 }
